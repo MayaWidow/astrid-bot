@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: astrid-bot
+    runtime: python
+    env: python-3.11
+    buildCommand: pip install -r requirements.txt
+    startCommand: python astrid_bot.py
