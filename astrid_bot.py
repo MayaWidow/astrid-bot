@@ -16,7 +16,7 @@ PRODUCTS = [
         "price": "800 000 ₽",
         "image_url": "https://i.ibb.co/cKB2D4jq/chanel.jpg",
         "gender": "Женская одежда",
-        "type": "Верхняя одежда",
+        "type": "Платья",
         "brand": "Chanel"
     },
     {
@@ -56,7 +56,7 @@ PRODUCTS = [
         "price": "110 000 ₽",
         "image_url": "https://i.ibb.co/GQp60bxR/Hermes.jpg",
         "gender": "Мужская одежда",
-        "type": "Толстовка/Худи/Свитер",
+        "type": "Толстовка/худи/свитер",
         "brand": "Hermes"
     },
     {
@@ -104,7 +104,7 @@ PRODUCTS = [
         "price": "150 000 ₽",
         "image_url": "https://i.ibb.co/KpNJfrgn/Balenciaga.jpg",
         "gender": "Мужская одежда",
-        "type": "Толстовка/Худи/Свитер",
+        "type": "Толстовка/худи/свитер",
         "brand": "Balenciaga"
     },
     {
@@ -176,7 +176,7 @@ PRODUCTS = [
 # === СТРУКТУРА КАТЕГОРИЙ ===
 MEN_CATEGORIES = [
     "Футболки", "Майки", "Рубашки/Поло", "Джинсы", "Брюки",
-    "Толстовка/Худи/Свитер", "Верхняя одежда", "Обувь", "Аксессуары"
+    "Толстовка/худи/свитер", "Верхняя одежда", "Обувь", "Аксессуары"
 ]
 
 WOMEN_CATEGORIES = [
@@ -219,7 +219,7 @@ async def show_no_products_found(update: Update, context: ContextTypes.DEFAULT_T
     )
 
 async def display_search_results(update: Update, context: ContextTypes.DEFAULT_TYPE, products: list):
-    """Отображает список товаров в виде кнопок (редактирует текущее сообщение)."""
+    """Отображает список товаров в виде кнопок."""
     keyboard = [
         [InlineKeyboardButton(p["name"], callback_data=f"product_{i}")]
         for i, p in enumerate(products)
@@ -233,7 +233,7 @@ async def display_search_results(update: Update, context: ContextTypes.DEFAULT_T
     )
 
 async def display_search_results_as_new_message(update: Update, context: ContextTypes.DEFAULT_TYPE, products: list):
-    """Отправляет список товаров как НОВОЕ сообщение — гарантированно работает."""
+    """Отображает список товаров в виде кнопок в НОВОМ сообщении."""
     keyboard = [
         [InlineKeyboardButton(p["name"], callback_data=f"product_{i}")]
         for i, p in enumerate(products)
@@ -314,7 +314,6 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif data == "back_to_results":
         products = context.user_data.get('last_search_results', [])
         if products:
-            # Просто отправляем новый список — без удаления, без редактирования — 100% работает
             await display_search_results_as_new_message(update, context, products)
         else:
             await query.answer("Нет предыдущих результатов.", show_alert=True)
