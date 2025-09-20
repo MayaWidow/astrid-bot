@@ -353,11 +353,14 @@ def main():
     print("🔧 Запуск бота...")
     TOKEN = "8294975968:AAEn2if-Cast6nrEhzYildWwWqB6H2BQ1HA"
 
+    # Создаём приложение
     application = Application.builder().token(TOKEN).build()
 
+    # Добавляем обработчики
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CallbackQueryHandler(button_handler))
 
+    # Запускаем бота
     logger.info("🚀 Бот запущен...")
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
